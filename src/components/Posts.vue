@@ -8,7 +8,7 @@
       <table>
         <tr>
           <td>Title</td>
-          <td width="550">Description test....</td>
+          <td width="550">Description test</td>
           <td width="100" align="center">Action</td>
         </tr>
         <tr v-for="(post, i) in posts" :key="i">
