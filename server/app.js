@@ -1,6 +1,8 @@
 const Post = require("./models/post");
 
 const express = require('express');
+const serveStatic = require('serve-static');
+const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -10,10 +12,16 @@ const CONNECTION_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/pos
 const PORT = process.env.PORT || 8081;
 
 const app = express();
-app.use(express.static(__dirname + '../dist'));
+
+app.use("/", serveStatic (path.join (__dirname, '../dist')));
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
+
+// Catch all routes and redirect to the index file
+app.get('*', function (req, res) {
+  res.sendFile(__dirname + '/dist/index.html');
+});
 
 // Fetch all posts
 app.get('/posts', (req, res) => {
