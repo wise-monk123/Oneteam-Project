@@ -10,7 +10,7 @@ const CONNECTION_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/pos
 const PORT = process.env.PORT || 8081;
 
 const app = express();
-// app.use(express.static(__dirname + '../dist/'));
+app.use(express.static(__dirname + '../dist/'));
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
