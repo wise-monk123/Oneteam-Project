@@ -22,7 +22,7 @@ app.get('/posts', (req, res) => {
   }).sort({_id:-1})
 });
 
-mongoose.connect('mongodb://localhost:27017/posts');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/posts');
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
