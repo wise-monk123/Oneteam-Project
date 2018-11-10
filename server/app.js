@@ -6,6 +6,9 @@ const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
+const CONNECTION_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/posts';
+const PORT = process.env.PORT || 8081;
+
 const app = express();
 app.use(express.static(__dirname + '../dist/'));
 app.use(morgan('combined'));
@@ -22,7 +25,7 @@ app.get('/posts', (req, res) => {
   }).sort({_id:-1})
 });
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/posts');
+mongoose.connect(CONNECTION_URI);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
@@ -51,4 +54,6 @@ app.post('/posts', (req, res) => {
   });
 });
 
-app.listen(process.env.PORT || 8081)
+app.listen(PORT, () => {
+  console.log('Server is listening on port ${PORT}');
+});
