@@ -1,11 +1,11 @@
-import Api from '@/services/api';
+import api from '@/services/api';
 
 export default {
   fetchPosts() {
-    return Api().get('posts');
+    return api.get('posts');
   },
 
   addPost(params) {
-    return Api().post('posts', params);
+    return api.post('posts', params);
   },
 };
