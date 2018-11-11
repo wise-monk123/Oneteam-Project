@@ -14,7 +14,7 @@ const api = {
   post(apiConfig) {
     const { url, params = {} } = apiConfig;
 
-    return http.get(url, { params });
+    return http.post(url, params);
   },
 };
 
