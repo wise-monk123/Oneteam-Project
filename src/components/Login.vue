@@ -4,7 +4,7 @@
       <h2 class="text-center">One Team</h2>
       <div class="text-center social-btn">
         <a
-          href="#"
+          href="http://localhost:8081/auth/google"
           class="btn btn-danger btn-block"
           @click=socialLogin
         >
