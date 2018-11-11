@@ -2,14 +2,10 @@ import api from '@/services/api';
 
 export default {
   fetchPosts() {
-    return api.get('posts');
+    return api.get({ url: 'posts' });
   },
 
   addPost(params) {
-    return api.post('posts', params);
-  },
-
-  auth() {
-    return api.get('auth/google');
+    return api.post({ url: 'posts' }, params);
   },
 };
