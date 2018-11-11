@@ -1,5 +1,6 @@
 const Post = require("./models/post");
 
+const passport = require('passport');
 const express = require('express');
 const serveStatic = require('serve-static');
 const path = require('path');
@@ -8,20 +9,31 @@ const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
+const auth = require('./config/auth');
+const authRoutes = require('./routes/auth');
+
 const CONNECTION_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/posts';
 const PORT = process.env.PORT || 8081;
 
 const app = express();
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.use("/", serveStatic (path.join (__dirname, '../dist')));
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
 
-// Catch all routes and redirect to the index file
-app.get('*', function (req, res) {
-  res.sendFile(__dirname + '/dist/index.html');
-});
+auth(passport);
+app.use(passport.initialize());
+
+// set up auth routes
+app.use('/auth', authRoutes);
 
 // Fetch all posts
 app.get('/posts', (req, res) => {
@@ -60,6 +72,11 @@ app.post('/posts', (req, res) => {
       message: 'Post saved successfully!'
     });
   });
+});
+
+// Catch all routes and redirect to the index file
+app.get('*', function (req, res) {
+  res.sendFile(__dirname + '/dist/index.html');
 });
 
 app.listen(PORT, () => {
