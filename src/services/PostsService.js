@@ -6,6 +6,6 @@ export default {
   },
 
   addPost(params) {
-    return api.post({ url: 'posts' , params });
+    return api.post({ url: 'posts', params });
   },
 };
