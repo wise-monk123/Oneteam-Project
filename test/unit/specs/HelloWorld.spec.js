@@ -5,5 +5,6 @@ describe('Login.vue', () => {
   it('should render correct contents', () => {
     const Constructor = Vue.extend(Login);
     const vm = new Constructor().$mount();
+    expect(vm).to.equal(vm);
   });
 });
