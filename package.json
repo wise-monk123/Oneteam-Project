@@ -21,6 +21,8 @@
     "mongoose": "^5.3.7",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.5",
+    "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
     "serve-static": "^1.13.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
