@@ -8,4 +8,8 @@ export default {
   addPost(params) {
     return api.post('posts', params);
   },
+
+  auth() {
+    return api.get('auth/google');
+  },
 };

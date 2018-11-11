@@ -1,23 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import loginStore from './login.store';
+
 Vue.use(Vuex);
-
-const state = {};
-
-const mutations = {};
-
-const actions = {};
-
-const getters = {};
 
 export default new Vuex.Store({
   modules: {
-    base: {
-      state,
-      mutations,
-      actions,
-      getters,
-    },
+    loginStore,
   },
 });

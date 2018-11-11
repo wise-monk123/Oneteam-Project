@@ -3,7 +3,11 @@
     <form>
       <h2 class="text-center">One Team</h2>
       <div class="text-center social-btn">
-        <a href="#" class="btn btn-danger btn-block">
+        <a
+          href="#"
+          class="btn btn-danger btn-block"
+          @click=socialLogin
+        >
           <i class="fa fa-google"></i> Sign in with <b>Google</b>
         </a>
       </div>
@@ -55,8 +59,16 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'Login',
+  methods: {
+    ...mapActions(['socialAuth']),
+    socialLogin() {
+      this.socialAuth();
+    },
+  },
 };
 </script>
 
