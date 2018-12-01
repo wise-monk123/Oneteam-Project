@@ -14,7 +14,11 @@
         alt=""
       >
     </a>
-    <a v-if="displayUserInfo" href="http://localhost:8081/logout">Logout</a>
+    <a
+      v-if="displayUserInfo"
+      class="navbar-brand logout"
+      href="http://localhost:8081/logout"
+    >Logout</a>
   </nav>
 </template>
 
@@ -50,12 +54,22 @@ export default {
 
 <style lang="scss" scoped>
   .navbar {
-    height: 50px;
+    height: 30px;
+    padding: 20px 0;
     display: flex;
     justify-content: flex-end;
   }
 
   .user-img {
     border-radius: 50%;
+  }
+
+  .logout {
+    color: #000;
+    padding: 0 10px;
+    &:hover {
+      text-decoration: none;
+      background-color: #f2f2f2;
+    }
   }
 </style>
