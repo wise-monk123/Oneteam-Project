@@ -17,7 +17,7 @@ export default {
         btn: true,
         'btn-primary': this.$route.path === path,
         'btn-secondary': this.$route.path !== path,
-        'btn-third': this.$route.path !== path
+        'btn-third': this.$route.path !== path,
       };
     },
   },

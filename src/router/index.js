@@ -2,7 +2,12 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/components/Login';
 import Register from '@/components/Register';
-import Board from '@/components/Board';
+import Board from '@/components/board/Board';
+import NewTask from '@/components/board/NewTask';
+import ManageTasks from '@/components/board/ManageTasks';
+import EditTask from '@/components/board/EditTask';
+import TaskDetails from '@/components/board/TaskDetails';
+
 import Posts from '@/components/Posts';
 import NewPost from '@/components/NewPost';
 
@@ -34,6 +39,28 @@ export default new Router({
       path: '/board',
       name: 'Board',
       component: Board,
+      children: [
+        {
+          path: '/',
+          name: 'TaskDetails',
+          component: TaskDetails,
+        },
+        {
+          path: '/new',
+          name: 'NewTask',
+          component: NewTask,
+        },
+        {
+          path: '/tasks',
+          name: 'ManageTasks',
+          component: ManageTasks,
+        },
+        {
+          path: '/tasks/:id',
+          name: 'EditTask',
+          component: EditTask,
+        },
+      ],
     },
   ],
 });
