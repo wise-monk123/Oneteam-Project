@@ -8,7 +8,12 @@ router.get('/google', passport.authenticate('google', {
 
 // callback route for google to redirect to
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
-  res.send('you reached the redirect URI');
+  // res.send('you reached the redirect URI');
+
+  const username = req.user.profile.displayName;
+  const img = req.user.profile.photos[0].value;
+
+  res.redirect(`http://localhost:8082/#/posts?userName=${username}&img=${img}`);
 });
 
 module.exports = router;
