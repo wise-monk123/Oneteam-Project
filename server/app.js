@@ -28,6 +28,17 @@ app.use(passport.initialize());
 // set up auth routes
 app.use('/auth', authRoutes);
 
+app.get('/port', (req, res) => {
+  res.send({
+    port: PORT,
+  });
+});
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('http://localhost:8082/#/');
+});
+
 // Fetch all posts
 app.get('/posts', (req, res) => {
   Post.find({}, 'title description', function (error, posts) {
