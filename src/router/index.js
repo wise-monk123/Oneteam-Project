@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/components/Login';
 import Register from '@/components/Register';
+import Board from '@/components/Board';
 import Posts from '@/components/Posts';
 import NewPost from '@/components/NewPost';
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/posts/new',
       name: 'NewPost',
       component: NewPost,
+    },
+    {
+      path: '/board',
+      name: 'Board',
+      component: Board,
     },
   ],
 });
