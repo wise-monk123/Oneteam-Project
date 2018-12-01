@@ -52,7 +52,7 @@
 
     <div class="hint-text small">
       Don't have an account?
-      <a href="#" class="text-success">Register Now!</a>
+      <a class="text-success" @click=navToRegister>Register Now!</a>
     </div>
 
   </div>
@@ -67,6 +67,9 @@ export default {
     ...mapActions(['socialAuth']),
     socialLogin() {
       this.socialAuth();
+    },
+    navToRegister() {
+      this.$router.push({ name: 'Register' });
     },
   },
 };
@@ -124,5 +127,9 @@ export default {
   }
   .input-group-addon .fa{
     font-size: 18px;
+  }
+
+  .text-success {
+    cursor: pointer;
   }
 </style>

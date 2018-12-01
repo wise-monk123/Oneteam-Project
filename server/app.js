@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 
 const auth = require('./config/auth');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 
 const CONNECTION_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/posts';
 const PORT = process.env.PORT || 8081;
@@ -27,6 +28,8 @@ app.use(passport.initialize());
 
 // set up auth routes
 app.use('/auth', authRoutes);
+// set up user routes
+app.use('/user', userRoutes);
 
 app.get('/port', (req, res) => {
   res.send({
