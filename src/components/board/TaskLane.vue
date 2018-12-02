@@ -2,8 +2,8 @@
   <div class="card">
     <h3 class="card-header">{{ title }}</h3>
     <div class="card-body">
-      <draggable v-model="draggables" :options="{ group: 'default' }">
-        <div v-for="item in items" :key="item.id">
+      <draggable v-model="draggableItems" :options="{ group: 'default' }">
+        <div v-for="item in draggableItems" :key="item.id">
           <lane-item :item="item"></lane-item>
         </div>
       </draggable>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Draggable from 'vuedraggable';
 import TaskLaneItem from '@/components/board/TaskLaneItem';
 
@@ -36,32 +37,36 @@ export default {
   },
   data() {
     return {
-      draggables: [],
+      draggableItems: [],
     };
   },
   components: {
     laneItem: TaskLaneItem,
     draggable: Draggable,
   },
-  computed: {
-    itemCount() {
-      if (!this.items) return '';
-      if (this.items.length === 1) return '1 task';
-      return `${this.items.length} tasks`;
+  watch: {
+    items: 'initialList',
+    draggableItems: 'updateList'
+  },
+  methods: {
+    ...mapActions(['updateItemsStatus']),
+    initialList() {
+      this.draggableItems = this.items;
+    },
+    updateList(laneItems) {
+      this.updateItemsStatus({
+        laneItems,
+        status: this.id,
+      });
     },
   },
-  //   draggables: {
-  //     get () {
-  //       return this.items
-  //     },
-  //     set (items) {
-  //       console.log(items, this.id)
-  //       this.$store.commit('updateItems', {
-  //         items,
-  //         id: this.id
-  //       })
-  //     }
-  //   }
+  computed: {
+    itemCount() {
+      if (!this.draggableItems) return '';
+      if (this.draggableItems.length === 1) return '1 task';
+      return `${this.draggableItems.length} tasks`;
+    },
+  },
 };
 </script>
 

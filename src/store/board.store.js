@@ -2,14 +2,7 @@ import _ from 'lodash';
 import api from '@/services/api';
 
 const state = {
-  items: [
-    { itemId: '1', itemText: 'item', status: 'todo' },
-    { itemId: '2', itemText: 'item', status: 'todo' },
-    { itemId: '3', itemText: 'item', status: 'inProgress' },
-    { itemId: '4', itemText: 'item', status: 'inProgress' },
-    { itemId: '5', itemText: 'item', status: 'done' },
-    { itemId: '6', itemText: 'item', status: 'done' },
-  ],
+  items: [],
   nextId: 1,
   addItemSuccess: false,
 };
@@ -23,6 +16,9 @@ const mutations = {
   },
   SET_ITEMS(state, value) {
     state.items = value;
+  },
+  UPDATE_ITEM_STATUS(state, value) {
+    Object.assign(state.items, value);
   },
 };
 
@@ -65,6 +61,29 @@ const actions = {
   deleteTask({ commit, dispatch }, { _id, status }) {
     return api.delete({
       url: `board/items/${_id}`,
+    });
+  },
+  updateItemsStatus({ commit, dispatch, getters }, { laneItems, status }) {
+    const { items } = getters;
+    const laneItemsClone = JSON.parse(JSON.stringify(laneItems));
+    let target;
+
+    _.each(items, (item) => {
+      target = _.find(laneItemsClone, (laneItem) => {
+        laneItem.status = status;
+
+        return (
+          item._id === laneItem._id &&
+          item.status !== laneItem.status
+        );
+      });
+
+      if (target) {
+        commit('UPDATE_ITEM_STATUS', target);
+        dispatch('updateTask', target);
+
+        return;
+      }
     });
   },
 };

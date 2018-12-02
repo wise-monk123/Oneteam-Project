@@ -16,31 +16,35 @@
 
 <script>
 import TaskLane from '@/components/board/TaskLane';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'TaskDetails',
   components: {
     TaskLane,
   },
-  data() {
-    return {
-      todoItems: [
-        { itemId: '1', itemText: 'item', status: 'todo' },
-        { itemId: '2', itemText: 'item', status: 'todo' },
-      ],
-      inProgressItems: [
-        { itemId: '3', itemText: 'item', status: 'inProgress' },
-        { itemId: '4', itemText: 'item', status: 'inProgress' },
-      ],
-      doneItems: [
-        { itemId: '5', itemText: 'item', status: 'done' },
-        { itemId: '6', itemText: 'item', status: 'done' },
-      ],
-    };
+  mounted() {
+    this.fetchTasks();
+  },
+  methods: {
+    ...mapActions(['fetchTasks']),
+  },
+  computed: {
+    ...mapGetters([
+      'items',
+      // 'todoItems',
+      // 'inProgressItems',
+      // 'doneItems',
+    ]),
+    todoItems() {
+      return _.filter(this.items, item => item.status === 'todo');
+    },
+    inProgressItems() {
+      return _.filter(this.items, item => item.status === 'inProgress');
+    },
+    doneItems() {
+      return _.filter(this.items, item => item.status === 'done');
+    },
   },
 };
 </script>
-
-<style>
-
-</style>
