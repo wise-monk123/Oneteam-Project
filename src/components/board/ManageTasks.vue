@@ -7,13 +7,13 @@
         <td width="200">Status</td>
         <td width="100" align="center">Action</td>
       </tr>
-      <tr v-for="task in tasks" :key="task.id">
+      <tr v-for="task in items" :key="task._id">
         <td>#T{{ task.itemId }}</td>
         <td>{{ task.text }}</td>
         <td>{{ task.status }}</td>
         <td align="center">
-          <router-link :to="{ name: 'EditTask', params: { id: task.itemId } }">Edit</router-link> |
-          <a href="#" @click="deleteTask(task.itemId)">Delete</a>
+          <router-link :to="{ name: 'EditTask', params: { id: task._id } }">Edit</router-link> |
+          <a href="#" @click="onDelete(task)">Delete</a>
         </td>
       </tr>
     </table>
@@ -21,25 +21,22 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'ManageTasks',
-  computed: {
-    ...mapGetters([
-      'todoItems',
-      'inProgressItems',
-      'doneItems',
-    ]),
-    tasks() {
-      const { todoItems, inProgressItems, doneItems } = this;
-
-      return [
-        ...todoItems,
-        ...inProgressItems,
-        ...doneItems,
-      ];
+  mounted () {
+    this.fetchTasks();
+  },
+  methods: {
+    ...mapActions(['fetchTasks', 'deleteTask']),
+    async onDelete(item) {
+      await this.deleteTask(item);
+      this.fetchTasks();
     },
+  },
+  computed: {
+    ...mapGetters(['items']),
   },
 };
 </script>

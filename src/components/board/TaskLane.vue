@@ -44,12 +44,24 @@ export default {
     draggable: Draggable,
   },
   computed: {
-    itemCount () {
+    itemCount() {
       if (!this.items) return '';
       if (this.items.length === 1) return '1 task';
       return `${this.items.length} tasks`;
     },
   },
+  //   draggables: {
+  //     get () {
+  //       return this.items
+  //     },
+  //     set (items) {
+  //       console.log(items, this.id)
+  //       this.$store.commit('updateItems', {
+  //         items,
+  //         id: this.id
+  //       })
+  //     }
+  //   }
 };
 </script>
 

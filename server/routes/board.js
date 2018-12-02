@@ -46,32 +46,32 @@ router.get('/items/:itemId', (req, res) => {
 });
 
   // Update a task
-router.put('/items/:itemId', (req, res) => {
-  Items.findOne({"itemId":req.params.itemId}, 'text status', function (error, items) {
+router.put('/items/:id', (req, res) => {
+  Items.findOne({"_id": req.params.id}, 'text status', function (error, items) {
     if (error) { console.error(error); }
-    items.text = req.body.textParam
-    items.status = req.body.statusParam
+    items.text = req.body.text;
+    items.status = req.body.status;
     items.save(function (error) {
       if (error) {
-        console.log(error)
+        console.log(error);
       }
       res.send({
-        success: true
+        success: true,
       });
     });
   });
 });
 
 router.delete('/items/:id', (req, res) => {
-  Items.remove({
-    "itemId": req.params.id
+  Items.deleteOne({
+    "_id": req.params.id
   }, function(err, post) {
     if (err) {
       res.send(err);
-      res.send({
-        success: true
-      });
     }
+    res.send({
+      success: true
+    });
   });
 });
 

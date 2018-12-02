@@ -1,66 +1,76 @@
 <template>
   <div class="tasks">
     <h1>Edit Task</h1>
-    <div class="form">
-      <div>Task ID:#T{{ID}}</div>
-      <div>Task Descriptions</div>
-      <div>
-        <input type="text" name="text" placeholder="$text" v-model="text">
+    <form>
+      <div class="form-group">
+        <label for="taskDescription">Task Descriptions</label>
+        <input
+          v-model="text"
+          type="text"
+          class="form-control"
+          id="taskDescription"
+          placeholder="Enter Task Descriptions"
+        >
       </div>
-      <div>Task Status</div>
-      <div>
-        <input type="text" name="status" placeholder="$status" v-model="status" disabled>
+      <div class="form-group">
+        <label for="taskStatus">Task Status</label>
+        <select
+          v-model="status"
+          class="form-control"
+          id="taskStatus"
+        >
+          <option value="todo">Todo</option>
+          <option value="inProgress">In Progress</option>
+          <option value="done">Done</option>
+        </select>
       </div>
-      <div class="radio">
-        <label>
-          <input type="radio" name="optradio" @click="setStatusToDo()">To-Do
-        </label>
-      </div>
-      <div class="radio">
-        <label>
-          <input type="radio" name="optradio" @click="setStatusInProgress()">In Progress
-        </label>
-      </div>
-      <div class="radio">
-        <label>
-          <input type="radio" name="optradio" @click="setStatusDone()">Done
-        </label>
-      </div>
-      <div>
-        <button class="app_post_btn" @click="updateTask">Update</button>
-      </div>
-    </div>
+      <button class="btn btn-primary" @click="onClickUpdate">Update</button>
+    </form>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'EditTask',
-    data () {
-      return {
-        ID: '',
-        text: '',
-        status: '',
-      };
-    },
-    methods: {
-      async getTasks () {
+import _ from 'lodash';
+import { mapGetters, mapActions } from 'vuex';
 
-      },
-      async updateTask () {
-
-      },
-      async setStatusToDo () {
-        this.status = 'todo';
-      },
-      async setStatusInProgress () {
-        this.status = 'inProgress';
-      },
-      async setStatusDone () {
-        this.status = 'done';
-      },
+export default {
+  name: 'EditTask',
+  data () {
+    return {
+      id: '',
+      text: '',
+      status: '',
+    };
+  },
+  mounted() {
+    this.editItem();
+  },
+  methods: {
+    ...mapActions(['updateTask']),
+    onClickUpdate() {
+      this.updateTask({
+        _id: this.id,
+        text: this.text,
+        status: this.status,
+      });
+      this.navToManageTask();
     },
-  };
+    navToManageTask() {
+      this.$router.push({ name: 'ManageTasks' });
+    },
+    editItem() {
+      const { id } = this.$route.params;
+      const target = _.find(this.items, (item) => item._id === id);
+
+      this.text = target.text || '';
+      this.status = target.status || '';
+      this.id = target._id || '';
+    },
+  },
+  computed: {
+    ...mapGetters(['items']),
+  },
+};
 </script>
 
 <style lang="scss" scoped>
