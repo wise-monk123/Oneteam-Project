@@ -1,6 +1,6 @@
 <template>
   <div class="add-item">
-    <form action="#" method="post" v-on:submit.prevent="submitForm">
+    <form action="#" method="post" @submit.prevent="submitForm">
       <input type="text" v-model="itemText" placeholder="Add something to the task">
     </form>
   </div>
