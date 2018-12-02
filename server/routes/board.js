@@ -24,8 +24,8 @@ router.post('/items', (req, res) => {
       success: true,
       message: 'Item saved successfully!',
       itemNumber: new_item.itemId
-    })
-  })
+    });
+  });
 });
 
 router.get('/items', (req, res) => {

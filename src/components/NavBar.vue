@@ -1,28 +1,39 @@
 <template>
   <nav class="navbar navbar-light bg-light">
-    <a
-      v-if="displayUserInfo"
-      class="navbar-brand"
-      href="#"
-    >
-      {{ userName }}
-      <img
-        :src="img"
-        width="30"
-        height="30"
-        class="d-inline-block align-top user-img"
-        alt=""
+    <div v-if="!normalLogin">
+      <a
+        v-if="displayUserInfo"
+        class="navbar-brand"
+        href="#"
       >
-    </a>
-    <a
-      v-if="displayUserInfo"
-      class="navbar-brand logout"
-      href="http://localhost:8081/logout"
-    >Logout</a>
+        {{ userName }}
+        <img
+          :src="img"
+          width="30"
+          height="30"
+          class="d-inline-block align-top user-img"
+          alt=""
+        >
+      </a>
+      <a
+        v-if="displayUserInfo"
+        class="navbar-brand logout"
+        href="http://localhost:8081/logout"
+      >Logout</a>
+    </div>
+    <div v-else>
+      <a
+        class="navbar-brand"
+        href="#"
+      >
+        {{ currentUser.username }}
+      </a>
+    </div>
   </nav>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import _ from 'lodash';
 
 export default {
@@ -38,6 +49,11 @@ export default {
     this.updateLoginProfile({ img, userName });
   },
   computed: {
+    ...mapGetters(['loginState', 'currentUser']),
+    normalLogin() {
+      console.log('****', this.loginState);
+      return this.loginState === 'NORMAL';
+    },
     displayUserInfo() {
       const { img = '', userName = '' } = this;
       return !_.isEmpty(userName) || !_.isEmpty(img);

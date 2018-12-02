@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const auth = require('./config/auth');
 const authRoutes = require('./routes/auth');
@@ -21,8 +22,8 @@ const app = express();
 
 app.use("/", serveStatic (path.join (__dirname, '../dist')));
 app.use(morgan('combined'));
-app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.json());
 
 auth(passport);
 app.use(passport.initialize());
@@ -47,7 +48,6 @@ db.on("error", console.error.bind(console, "connection error"));
 db.once("open", function(callback){
   console.log("Connection Succeeded");
 });
-
 
 app.get('/logout', function(req, res){
   req.logout();
