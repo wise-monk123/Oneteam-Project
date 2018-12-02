@@ -5,7 +5,10 @@
     </form>
   </div>
 </template>
+
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'NewItemForm',
   data () {
@@ -14,7 +17,13 @@ export default {
     };
   },
   methods: {
-    submitForm () {},
+    ...mapActions(['addItem']),
+    submitForm () {
+      if (this.itemText) {
+        this.addItem({ text: this.itemText });
+        this.itemText = '';
+      }
+    },
   },
 };
 </script>

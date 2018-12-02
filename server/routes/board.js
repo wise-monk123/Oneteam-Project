@@ -6,7 +6,7 @@ let Items = require('../models/items');
 router.post('/items', (req, res) => {
 
   var db = req.db;
-  var item_text = req.body.text;
+  var item_text = req.body.itemText;
   var item_Id = req.body.itemId;
   var item_status = req.body.status;
 

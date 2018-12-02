@@ -14,14 +14,14 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const boardRoutes = require('./routes/board');
 
-const CONNECTION_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/posts';
+const CONNECTION_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/items';
 const PORT = process.env.PORT || 8081;
 
 const app = express();
 
 app.use("/", serveStatic (path.join (__dirname, '../dist')));
 app.use(morgan('combined'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cors());
 
 auth(passport);

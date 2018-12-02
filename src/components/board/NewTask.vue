@@ -5,7 +5,7 @@
       <div class="card-block">
         <h5 class="card-title">
           <span class="text-muted">#T{{ item.id }}</span>
-            {{ item.text }}
+            {{ item.itemText }}
           <span :class="badgeClass(item)">{{ badgeText(item) }}</span>
         </h5>
       </div>
