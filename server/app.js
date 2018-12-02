@@ -12,15 +12,16 @@ const mongoose = require('mongoose');
 const auth = require('./config/auth');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
+const boardRoutes = require('./routes/board');
 
-const CONNECTION_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/posts';
+const CONNECTION_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/items';
 const PORT = process.env.PORT || 8081;
 
 const app = express();
 
 app.use("/", serveStatic (path.join (__dirname, '../dist')));
 app.use(morgan('combined'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cors());
 
 auth(passport);
@@ -30,12 +31,23 @@ app.use(passport.initialize());
 app.use('/auth', authRoutes);
 // set up user routes
 app.use('/user', userRoutes);
+// set up board routes
+app.use('/board', boardRoutes);
 
 app.get('/port', (req, res) => {
   res.send({
     port: PORT,
   });
 });
+
+mongoose.connect(CONNECTION_URI);
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error"));
+db.once("open", function(callback){
+  console.log("Connection Succeeded");
+});
+
 
 app.get('/logout', function(req, res){
   req.logout();
@@ -50,14 +62,6 @@ app.get('/posts', (req, res) => {
       posts: posts
     })
   }).sort({_id:-1})
-});
-
-mongoose.connect(CONNECTION_URI);
-
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", function(callback){
-  console.log("Connection Succeeded");
 });
 
 // Add new post
