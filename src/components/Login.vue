@@ -22,6 +22,7 @@
           <input
             type="text"
             class="form-control"
+            v-model="username"
             name="username"
             placeholder="Username"
             required="required"
@@ -37,6 +38,7 @@
           <input
             type="password"
             class="form-control"
+            v-model="password"
             name="password"
             placeholder="Password"
             required="required"
@@ -45,7 +47,11 @@
       </div>
 
       <div class="form-group">
-        <button type="submit" class="btn btn-success btn-block login-btn">Sign in</button>
+        <button
+          type="submit"
+          class="btn btn-success btn-block login-btn"
+          @click="onSignIn"
+        >Sign in</button>
       </div>
 
     </form>
@@ -59,17 +65,43 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import _ from 'lodash';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'Login',
+  data() {
+    return {
+      username: '',
+      password: '',
+    };
+  },
+  computed: {
+    ...mapGetters(['users']),
+  },
   methods: {
-    ...mapActions(['socialAuth']),
+    ...mapActions(['socialAuth', 'updateCurrentUser']),
     socialLogin() {
       this.socialAuth();
     },
     navToRegister() {
       this.$router.push({ name: 'Register' });
+    },
+    onSignIn() {
+      const registeredUser = _.find(this.users, (user) => {
+        return (
+          user.username === this.username &&
+          user.password === this.password
+        );
+      });
+
+      if (registeredUser) {
+        this.updateCurrentUser(registeredUser);
+        this.$router.push({ name: 'TaskDetails' });
+      }
+      else {
+        alert('User does not exist, please register and sign in!');
+      }
     },
   },
 };

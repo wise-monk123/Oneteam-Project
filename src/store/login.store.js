@@ -22,6 +22,9 @@ const mutations = {
   SET_LOGIN_STATE(state, value) {
     state.loginState = value;
   },
+  SET_CURRENT_USER(state, value) {
+    state.currentUser = value;
+  },
 };
 
 const actions = {
@@ -43,7 +46,14 @@ const actions = {
     }).then(() => {
       commit('SET_REGISTER_SUCCESS', true);
     });
-  }
+  },
+  updateCurrentUser({ commit }, currentUser) {
+    commit('SET_LOGIN_STATE', 'NORMAL');
+    commit('SET_CURRENT_USER', currentUser);
+  },
+  updateLoginState({ commit }, loginState) {
+    commit('SET_LOGIN_STATE', loginState);
+  },
 };
 
 const getters = {
@@ -51,6 +61,7 @@ const getters = {
   registerSuccess: state => state.registerSuccess,
   currentUser: state => state.currentUser,
   loginState: state => state.loginState,
+  users: state => state.users,
 };
 
 export default {

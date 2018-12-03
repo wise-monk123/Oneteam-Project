@@ -28,12 +28,16 @@
       >
         {{ currentUser.username }}
       </a>
+      <a
+        class="navbar-brand logout"
+        @click="normalLogout"
+      >Logout</a>
     </div>
   </nav>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import _ from 'lodash';
 
 export default {
@@ -60,9 +64,14 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['updateLoginState']),
     updateLoginProfile({ img, userName }) {
       this.userName = userName;
       this.img = img;
+    },
+    normalLogout() {
+      this.$router.push({ name: 'Login' });
+      this.updateLoginState('');
     },
   },
 };
