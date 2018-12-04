@@ -83,3 +83,19 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+  .newtask-view {
+    width: 80%;
+    margin: auto;
+
+    .card {
+      margin: 10px 0;
+      text-align: left;
+
+      .card-title {
+        margin: 10px;
+      }
+    }
+  }
+</style>
