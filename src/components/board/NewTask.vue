@@ -4,8 +4,8 @@
     <div class="card" v-for="item in items" :key="item.id">
       <div class="card-block">
         <h5 class="card-title">
-          <span class="text-muted">#T{{ item.id }}</span>
-            {{ item.itemText }}
+          <span class="text-muted">#T{{ item.itemId }}</span>
+            {{ item.itemText }}{{ item.text }}
           <span :class="badgeClass(item)">{{ badgeText(item) }}</span>
         </h5>
       </div>
