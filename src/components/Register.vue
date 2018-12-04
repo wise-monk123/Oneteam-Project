@@ -1,5 +1,5 @@
 <template>
-  <form class="register-form">
+  <form class="register-form" @submit.prevent>
     <div class="form-group pull-left">
       <label for="username">User Name</label>
       <input

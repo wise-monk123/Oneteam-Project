@@ -70,8 +70,8 @@ export default {
       this.img = img;
     },
     normalLogout() {
-      this.$router.push({ name: 'Login' });
       this.updateLoginState('');
+      this.$router.push({ name: 'Login' });
     },
   },
 };

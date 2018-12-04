@@ -80,7 +80,11 @@ export default {
     ...mapGetters(['users']),
   },
   methods: {
-    ...mapActions(['socialAuth', 'updateCurrentUser']),
+    ...mapActions([
+      'socialAuth',
+      'updateCurrentUser',
+      'updateLoginState',
+    ]),
     socialLogin() {
       this.socialAuth();
     },
@@ -96,6 +100,7 @@ export default {
       });
 
       if (registeredUser) {
+        this.updateLoginState('NORMAL');
         this.updateCurrentUser(registeredUser);
         this.$router.push({ name: 'TaskDetails' });
       }
