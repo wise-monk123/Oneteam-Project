@@ -24,5 +24,7 @@ export default {
 <style>
   .card.task-lane-item {
     background: #70d662;
+    width: 70%;
+    margin: 10px auto;
   }
 </style>

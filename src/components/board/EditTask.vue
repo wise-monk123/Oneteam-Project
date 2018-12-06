@@ -96,4 +96,8 @@ export default {
     border: none;
     cursor: pointer;
   }
+  .tasks {
+    width: 30%;
+    margin: auto;
+  }
 </style>

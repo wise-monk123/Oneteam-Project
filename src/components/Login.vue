@@ -1,6 +1,6 @@
 <template>
   <div class="login-form">
-    <form>
+    <form @submit.prevent.stop>
       <h2 class="text-center">One Team</h2>
       <div class="text-center social-btn">
         <a
