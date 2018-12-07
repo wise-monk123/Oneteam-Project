@@ -5,26 +5,25 @@
 ## Build Setup
 
 ``` bash
-# install dependencies
-npm install
+# install dependencies @root folder
+npm install 
+
+# change client port to 8080 in order to run locally @index.js
+host: 'localhost', 
+port: 8080, 
+
+# change server port to 8081 in order to run locally @app.js
+host: 'localhost', 
+port: 8080, 
 
 # serve with hot reload at localhost:8080
 npm run dev
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
+# run node server at port 8081 @server folder
+npm start 
 
 # run all tests
-npm test
+mocha
 
-# run node server at port 8081
-npm run server 
+
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
