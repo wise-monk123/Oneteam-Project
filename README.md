@@ -13,8 +13,7 @@ host: 'localhost',
 port: 8080, 
 
 # change server port to 8081 in order to run locally @app.js
-host: 'localhost', 
-port: 8080, 
+app.listen(8081, () => {
 
 # serve with hot reload at localhost:8080
 npm run dev
