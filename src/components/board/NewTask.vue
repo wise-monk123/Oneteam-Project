@@ -5,7 +5,7 @@
       <div class="card-block">
         <h5 class="card-title">
           <span class="text-muted">#T{{ item.itemId }}</span>
-            {{ item.itemText }}{{ item.text }}
+            {{ item.itemText || item.text }}
           <span :class="badgeClass(item)">{{ badgeText(item) }}</span>
         </h5>
       </div>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import NewItemForm from '@/components/board/NewItemForm';
 
 export default {
@@ -38,7 +38,11 @@ export default {
       ];
     },
   },
+  mounted () {
+    this.fetchTasks();
+  },
   methods: {
+    ...mapActions(['fetchTasks']),
     itemStatus(item) {
       if (this.items.todo.includes(item)) {
         return 'todo';

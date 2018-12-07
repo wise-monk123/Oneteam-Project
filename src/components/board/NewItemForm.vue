@@ -7,7 +7,9 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import vue from 'vuex';
+import _ from 'lodash';
 
 export default {
   name: 'NewItemForm',
@@ -20,11 +22,14 @@ export default {
     ...mapActions(['addItem']),
     submitForm () {
       if (this.itemText) {
-        this.addItem({ text: this.itemText });
+        this.addItem({ text: this.itemText,ownername:this.currentUser.username });
         this.itemText = '';
       }
     },
   },
+   computed: {
+    ...mapGetters(['currentUser'])
+   }
 };
 </script>
 

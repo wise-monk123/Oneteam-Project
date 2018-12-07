@@ -9,11 +9,15 @@ router.post('/items', (req, res) => {
   var item_text = req.body.itemText;
   var item_Id = req.body.itemId;
   var item_status = req.body.status;
+  var item_owner = req.body.owner;
+  //console.log(req)
+ // console.log(item_owner);
 
   var new_item = new Items({
     itemId: item_Id,
     text: item_text,
-    status: item_status
+    status: item_status,
+    owner:item_owner
   })
 
   new_item.save(function (error) {
@@ -29,7 +33,7 @@ router.post('/items', (req, res) => {
 });
 
 router.get('/items', (req, res) => {
-  Items.find({}, 'itemId text status', function (error, items) {
+  Items.find({}, 'itemId text status owner', function (error, items) {
     if (error) { console.error(error); }
     res.send({
       items: items

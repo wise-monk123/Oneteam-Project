@@ -4,12 +4,14 @@
       <tr>
         <td width="200">Task ID</td>
         <td width="550">Description</td>
-        <td width="200">Status</td>
+        <td width="200">Owner</td>
+        <td width="200">Status</td>       
         <td width="100" align="center">Action</td>
       </tr>
       <tr v-for="task in items" :key="task._id">
         <td>#T{{ task.itemId }}</td>
         <td>{{ task.text }}</td>
+        <td>{{ task.owner }}</td>
         <td>{{ task.status }}</td>
         <td align="center">
           <router-link :to="{ name: 'EditTask', params: { id: task._id } }">Edit</router-link> |

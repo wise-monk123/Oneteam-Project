@@ -5,6 +5,7 @@ const state = {
   items: [],
   nextId: 1,
   addItemSuccess: false,
+  owner:''
 };
 
 const mutations = {
@@ -23,11 +24,12 @@ const mutations = {
 };
 
 const actions = {
-  addItem({ commit, getters }, { text }) {
+  addItem({ commit, getters }, { text ,ownername}) {
     const newItem = {
       itemId: Math.floor(Math.random() * 10000),
       itemText: text,
       status: 'todo',
+      owner:ownername
     };
 
     return api.post({
