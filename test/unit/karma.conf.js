@@ -31,6 +31,14 @@ module.exports = function karmaConfig(config) {
         { type: 'lcov', subdir: '.' },
         { type: 'text-summary' },
       ],
+      check: {
+        global: {
+          statements: 0,
+          branches: 0,
+          functions: 0,
+          lines: 0,
+        },
+      },
     },
   });
 };
